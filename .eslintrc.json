@@ -32,6 +32,8 @@
 		"@typescript-eslint"
 	],
 	"rules": {
+		"no-debugger":"off",
+		"@typescript-eslint/no-this-alias": ["off"],
 		"no-prototype-builtins": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
 		"arrow-parens": [
@@ -63,7 +65,6 @@
 			}
 		],
 		"no-caller": "error",
-		"no-debugger": "warn",
 		"no-dupe-class-members": "off",
 		"no-duplicate-imports": "error",
 		"no-else-return": "warn",

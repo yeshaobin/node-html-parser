@@ -519,6 +519,51 @@ export default class HTMLElement extends Node {
 	}
 
 	/**
+	 * find elements by their attr reg
+	 * @param {RegExp} reg the attributes regexp of the elements to select
+	 */
+	public getElementByAttrKeyReg(reg: RegExp): Array<HTMLElement> {
+		const attrReg = new RegExp(reg);
+		const re: Array<Node> = [];
+		const stack: Array<number> = [];
+
+		let currentNodeReference = this as Node;
+		let index: number | undefined = 0;
+
+		// index turns to undefined once the stack is empty and the first condition occurs
+		// which happens once all relevant children are searched through
+		while (index !== undefined) {
+			let child: HTMLElement | undefined;
+			// make it work with sparse arrays
+			do {
+				child = currentNodeReference.childNodes[index++] as HTMLElement | undefined;
+			} while (index < currentNodeReference.childNodes.length && child === undefined);
+
+			// if the child does not exist we move on with the last provided index (which belongs to the parentNode)
+			if (child === undefined) {
+				currentNodeReference = currentNodeReference.parentNode;
+				index = stack.pop();
+
+				continue;
+			}
+
+			if (child.nodeType === NodeType.ELEMENT_NODE) {
+				// https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName#syntax
+				if (Object.keys(child.attributes).some(key => attrReg.test(key))) re.push(child);
+
+				// if children are existing push the current status to the stack and keep searching for elements in the level below
+				if (child.childNodes.length > 0) {
+					stack.push(index);
+					currentNodeReference = child;
+					index = 0;
+				}
+			}
+		}
+
+		return re as Array<HTMLElement>;
+	}
+
+	/**
 	 * find element by it's id
 	 * @param {string} id the id of the element to select
 	 */
@@ -687,7 +732,7 @@ export default class HTMLElement extends Node {
 		}
 		const attrs = {} as RawAttributes;
 		if (this.rawAttrs) {
-			const re = /([@a-zA-Z()#][@a-zA-Z0-9-_:()#.]*)(?:\s*=\s*((?:'[^']*')|(?:"[^"]*")|\S+))?/g;
+			const re = /([@:a-zA-Z()#][@a-zA-Z0-9-_:()#.]*)(?:\s*=\s*((?:'[^']*')|(?:"[^"]*")|\S+))?/g;
 			let match: RegExpExecArray;
 			while ((match = re.exec(this.rawAttrs))) {
 				const key = match[1];
@@ -734,6 +779,15 @@ export default class HTMLElement extends Node {
 	 */
 	public getAttribute(key: string): string | undefined {
 		return this.attrs[key.toLowerCase()];
+	}
+
+	/**
+	 * Get an attribute key value by Regexp
+	 * @return {string} value of the attribute
+	 */
+	public getKeyValueByAttrReg(reg: string | RegExp): [string, string] {
+		const key = Object.keys(this.attrs).find(key => new RegExp(reg).test(key));
+		return key ? [key, this.attrs[key]]: ['', ''];
 	}
 
 	/**

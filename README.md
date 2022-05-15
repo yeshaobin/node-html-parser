@@ -1,5 +1,7 @@
 # Fast HTML Parser [![NPM version](https://badge.fury.io/js/node-html-parser.png)](http://badge.fury.io/js/node-html-parser) [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Ftaoqf%2Fnode-html-parser%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/taoqf/node-html-parser/goto?ref=main)
 
+
+原代码地址在github上的node-html-parser,这个包是对其做了修改以适应自己需要而发布的。
 Fast HTML Parser is a _very fast_ HTML parser. Which will generate a simplified
 DOM tree, with element query support.
 
@@ -12,7 +14,7 @@ no closing `<li>`, `<td>` etc).
 
 
 ```shell
-npm install --save node-html-parser
+tnpm install --save @tencent/html-parser
 ```
 
 > Note: when using Fast HTML Parser in a Typescript project the minimum Typescript version supported is `^4.1.2`.

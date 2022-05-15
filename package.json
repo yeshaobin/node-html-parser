@@ -1,5 +1,5 @@
 {
-	"name": "node-html-parser",
+	"name": "@tencent/html-parser",
 	"version": "5.3.3",
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "dist/index.js",
@@ -43,15 +43,7 @@
 		"LICENSE",
 		"CHANGELOG.md"
 	],
-	"author": "Xiaoyi Shi <ashi009@gmail.com>",
-	"contributors": [
-		"taoqf <tao_qiufeng@126.com>",
-		"Ron S. <ron@nonara.com>"
-	],
 	"license": "MIT",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org"
-	},
 	"dependencies": {
 		"css-select": "^4.2.1",
 		"he": "1.2.0"
@@ -104,14 +96,5 @@
 	},
 	"directories": {
 		"test": "test"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/taoqf/node-fast-html-parser.git"
-	},
-	"bugs": {
-		"url": "https://github.com/taoqf/node-fast-html-parser/issues"
-	},
-	"homepage": "https://github.com/taoqf/node-fast-html-parser",
-	"sideEffects": false
+	}
 }
